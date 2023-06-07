@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dTy-i0-I1s">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dTy-i0-I1s">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,9 +20,17 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="94n-ox-dEl">
                                 <rect key="frame" x="0.0" y="103" width="393" height="715"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" text="" id="4pN-BW-yMD">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="BYZ-38-t0r" id="Voa-I1-oo2"/>
+                                    </connections>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="TOM-Jn-ojx" detailTextLabel="6ac-2W-LIA" style="IBUITableViewCellStyleSubtitle" id="A7b-Ma-5Ku">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="94" width="393" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A7b-Ma-5Ku" id="DTN-wy-aXc">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
@@ -57,6 +66,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Zt2-xC-2JZ">
+                        <barButtonItem key="leftBarButtonItem" title="HOME" style="done" id="HvZ-8X-MSZ">
+                            <connections>
+                                <action selector="refreshSearch:" destination="BYZ-38-t0r" id="Yd7-tQ-1Ih"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Vgh-Bg-OTp">
                             <connections>
                                 <segue destination="LaY-DE-IxF" kind="show" id="fmX-C8-zX8"/>
@@ -64,6 +78,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="4pN-BW-yMD" id="lAg-Xr-xhp"/>
                         <outlet property="tableView" destination="94n-ox-dEl" id="kEP-0a-Idl"/>
                         <segue destination="LaY-DE-IxF" kind="show" identifier="cellSegue" id="nGP-zB-c41"/>
                     </connections>
@@ -151,6 +166,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Fv8-b9-vS9"/>
                     <connections>
+                        <outlet property="category" destination="ATu-Lh-CPR" id="BfE-2x-mv6"/>
                         <outlet property="contentsTextView" destination="The-fL-S7e" id="cJJ-aY-LoX"/>
                         <outlet property="datePicker" destination="vmJ-QY-Co6" id="udf-xr-ga0"/>
                         <outlet property="titleTextField" destination="mib-Xf-z7h" id="mmq-mN-chT"/>

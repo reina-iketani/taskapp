@@ -16,5 +16,5 @@ class Task: Object {
     
     @Persisted var date = Date()
     
-    //@Persisted var category = ""
+    @Persisted var category = ""
 }

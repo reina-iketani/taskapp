@@ -9,12 +9,19 @@ import UIKit
 import RealmSwift
 import UserNotifications
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    
     
     let realm = try! Realm()
     
     var taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: true)
+    
+    var filteredTaskArray: Results<Task>? = nil
+    var category: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +29,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.fillerRowHeight = UITableView.automaticDimension
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,24 +38,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return taskArray.count
+        
+        return filteredTaskArray?.count ?? taskArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
-        let task = taskArray[indexPath.row]
-        cell.textLabel?.text = task.title
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            let task: Task
+            if let filteredTasks = filteredTaskArray {
+                task = filteredTasks[indexPath.row]
+            } else {
+                task = taskArray[indexPath.row]
+            }
 
-        let dateString:String = formatter.string(from: task.date)
-        cell.detailTextLabel?.text = dateString
-        
-        return cell
-        
-    }
+            cell.textLabel?.text = task.title
+
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            let dateString: String = formatter.string(from: task.date)
+            cell.detailTextLabel?.text = dateString
+
+            return cell
+        }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "cellSegue", sender: nil)
@@ -82,19 +95,52 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        let inputViewController:InputViewController = segue.destination as! InputViewController
-        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let inputViewController: InputViewController = segue.destination as! InputViewController
         
         if segue.identifier == "cellSegue" {
-            let indexPath = self.tableView.indexPathForSelectedRow
-            inputViewController.task = taskArray[indexPath!.row]
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                let task: Task
+                if let filteredTasks = filteredTaskArray, !filteredTasks.isEmpty {
+                    // 検索結果がある場合、該当のタスクを取得
+                    task = filteredTasks[indexPath.row]
+                } else {
+                    // 検索結果がない場合、全データの中から該当のタスクを取得
+                    task = taskArray[indexPath.row]
+                }
+                inputViewController.task = task
+            }
         } else {
             inputViewController.task = Task()
         }
-        
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    // キーボードを閉じる
+        view.endEditing(true)
+    // 入力された値がnilでなければif文のブロック内の処理を実行
+        if let category = searchBar.text {
+            self.category = category
+            filteredTaskArray = realm.objects(Task.self).filter("category == %@", category).sorted(byKeyPath: "date", ascending: true)
+        } else{
+            filteredTaskArray = nil
+        }
+            
+            tableView.reloadData()
         
     }
+    
+    
+    @IBAction func refreshSearch(_ sender: Any) {
+        searchBar.text = nil
+        filteredTaskArray = nil
+        category = nil
+        tableView.reloadData()
+        searchBar.resignFirstResponder()
+    }
+    
+    
+    
     
     
 }
