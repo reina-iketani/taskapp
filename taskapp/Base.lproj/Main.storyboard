@@ -75,7 +75,7 @@
         <!--Input View Controller-->
         <scene sceneID="NX5-CC-qCl">
             <objects>
-                <viewController id="LaY-DE-IxF" customClass="inputViewController" customModule="taskapp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="LaY-DE-IxF" customClass="InputViewController" customModule="taskapp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yeP-Dl-Zz4">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -111,20 +111,37 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="カテゴリ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIF-TI-rT2">
+                                <rect key="frame" x="10" y="575" width="373" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="カテゴリ入力" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ATu-Lh-CPR">
+                                <rect key="frame" x="10" y="606" width="373" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Vkg-Uu-ktT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Vkg-Uu-ktT" firstAttribute="trailing" secondItem="ATu-Lh-CPR" secondAttribute="trailing" constant="10" id="3pJ-VP-QYq"/>
                             <constraint firstItem="Vkg-Uu-ktT" firstAttribute="trailing" secondItem="5Jd-BK-KmY" secondAttribute="trailing" constant="10" id="4oV-vi-cNJ"/>
                             <constraint firstItem="Vkg-Uu-ktT" firstAttribute="trailing" secondItem="mib-Xf-z7h" secondAttribute="trailing" constant="10" id="6MR-yV-Rfr"/>
+                            <constraint firstItem="ATu-Lh-CPR" firstAttribute="top" secondItem="rIF-TI-rT2" secondAttribute="bottom" constant="10" id="BUH-cR-Byi"/>
+                            <constraint firstItem="Vkg-Uu-ktT" firstAttribute="trailing" secondItem="rIF-TI-rT2" secondAttribute="trailing" constant="10" id="DIY-uR-48w"/>
                             <constraint firstItem="vmJ-QY-Co6" firstAttribute="leading" secondItem="Vkg-Uu-ktT" secondAttribute="leading" id="Eah-g3-SAn"/>
                             <constraint firstItem="U8x-J0-ZjP" firstAttribute="top" secondItem="Vkg-Uu-ktT" secondAttribute="top" constant="10" id="J3g-rh-5Tv"/>
                             <constraint firstItem="mib-Xf-z7h" firstAttribute="leading" secondItem="Vkg-Uu-ktT" secondAttribute="leading" constant="10" id="J6S-UJ-oOe"/>
                             <constraint firstItem="5Jd-BK-KmY" firstAttribute="top" secondItem="mib-Xf-z7h" secondAttribute="bottom" constant="10" id="Kzx-S0-cIN"/>
                             <constraint firstItem="vmJ-QY-Co6" firstAttribute="trailing" secondItem="Vkg-Uu-ktT" secondAttribute="trailing" id="LtL-4u-XY0"/>
                             <constraint firstItem="mib-Xf-z7h" firstAttribute="top" secondItem="U8x-J0-ZjP" secondAttribute="bottom" constant="10" id="Qb6-so-T0b"/>
+                            <constraint firstItem="rIF-TI-rT2" firstAttribute="top" secondItem="vmJ-QY-Co6" secondAttribute="bottom" constant="10" id="RBu-al-FG5"/>
+                            <constraint firstItem="rIF-TI-rT2" firstAttribute="leading" secondItem="Vkg-Uu-ktT" secondAttribute="leading" constant="10" id="Sgh-7T-3uR"/>
                             <constraint firstItem="Vkg-Uu-ktT" firstAttribute="trailing" secondItem="U8x-J0-ZjP" secondAttribute="trailing" constant="10" id="YDz-SC-U4B"/>
                             <constraint firstItem="U8x-J0-ZjP" firstAttribute="leading" secondItem="Vkg-Uu-ktT" secondAttribute="leading" constant="10" id="fv6-mN-XJT"/>
+                            <constraint firstItem="ATu-Lh-CPR" firstAttribute="leading" secondItem="Vkg-Uu-ktT" secondAttribute="leading" constant="10" id="h7K-kH-ygZ"/>
                             <constraint firstItem="The-fL-S7e" firstAttribute="leading" secondItem="Vkg-Uu-ktT" secondAttribute="leading" constant="10" id="jRP-vO-4F4"/>
                             <constraint firstItem="5Jd-BK-KmY" firstAttribute="leading" secondItem="Vkg-Uu-ktT" secondAttribute="leading" constant="10" id="k6I-I9-8iM"/>
                             <constraint firstItem="Vkg-Uu-ktT" firstAttribute="trailing" secondItem="The-fL-S7e" secondAttribute="trailing" constant="10" id="qI0-0y-Aii"/>
@@ -134,14 +151,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="Fv8-b9-vS9"/>
                     <connections>
-                        <outlet property="contentsTextView" destination="5Jd-BK-KmY" id="wyt-eJ-ohq"/>
+                        <outlet property="contentsTextView" destination="The-fL-S7e" id="cJJ-aY-LoX"/>
                         <outlet property="datePicker" destination="vmJ-QY-Co6" id="udf-xr-ga0"/>
                         <outlet property="titleTextField" destination="mib-Xf-z7h" id="mmq-mN-chT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AVa-fa-hTX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2573.2824427480914" y="-97.183098591549296"/>
+            <point key="canvasLocation" x="1908" y="4"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tnK-wy-BM1">
@@ -160,7 +177,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xY1-g4-P73" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="101.5267175572519" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="111" y="4"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
