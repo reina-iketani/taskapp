@@ -18,3 +18,4 @@ class Task: Object {
     
     @Persisted var category = ""
 }
+
