@@ -47,20 +47,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
             let task: Task
             if let filteredTasks = filteredTaskArray {
+                
                 task = filteredTasks[indexPath.row]
+                
             } else {
                 task = taskArray[indexPath.row]
             }
 
             cell.textLabel?.text = task.title
+            
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                let dateString: String = formatter.string(from: task.date)
+                cell.detailTextLabel?.text = dateString
+            
 
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            let dateString: String = formatter.string(from: task.date)
-            cell.detailTextLabel?.text = dateString
 
             return cell
-        }
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "cellSegue", sender: nil)
@@ -113,21 +117,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else {
             inputViewController.task = Task()
         }
+        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    // キーボードを閉じる
-        view.endEditing(true)
+    
     // 入力された値がnilでなければif文のブロック内の処理を実行
         if let category = searchBar.text {
             self.category = category
             filteredTaskArray = realm.objects(Task.self).filter("category == %@", category).sorted(byKeyPath: "date", ascending: true)
+            
         } else{
             filteredTaskArray = nil
         }
             
             tableView.reloadData()
-        
+        // キーボードを閉じる
+            view.endEditing(true)
     }
     
     
